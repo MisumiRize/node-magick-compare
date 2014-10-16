@@ -21,10 +21,12 @@ class CompareWorker : public NanAsyncWorker {
     ~CompareWorker();
     void Execute();
     void HandleOKCallback();
+    void SetSupress(bool supress);
 
  private:
     Image _image;
     Image _compare;
+    bool _supress;
     bool _result;
     Blob _diff;
 };
