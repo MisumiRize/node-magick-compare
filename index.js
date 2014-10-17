@@ -1,5 +1,5 @@
 var compare = require('./build/Release/compare').compare
-    , merge = require('merge')
+    , _ = require('lodash')
     ;
 
 DEFAULT_OPTIONS = {
@@ -11,5 +11,5 @@ module.exports = function(base, compareWith, options, callback) {
         callback = options;
         options = {};
     }
-    compare(base, compareWith, merge(DEFAULT_OPTIONS, options), callback);
+    compare(base, compareWith, _.merge(DEFAULT_OPTIONS, options), callback);
 };

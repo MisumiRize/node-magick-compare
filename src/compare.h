@@ -10,8 +10,6 @@ using v8::Local;
 using v8::Handle;
 using v8::Function;
 using v8::FunctionTemplate;
-using node::Buffer::Data;
-using node::Buffer::Length;
 using Magick::Image;
 using Magick::Blob;
 

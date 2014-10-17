@@ -64,7 +64,7 @@ NAN_METHOD(Compare) {
     bool supress = options->Get(NanNew<String>("supress"))->BooleanValue();
 
     Local<Object> baseSrcData = Local<Object>::Cast(args[0]);
-    Blob baseSrcBlob(Data(baseSrcData), Length(baseSrcData));
+    Blob baseSrcBlob(node::Buffer::Data(baseSrcData), node::Buffer::Length(baseSrcData));
     Image base;
     try {
         base.read(baseSrcBlob);
@@ -76,7 +76,7 @@ NAN_METHOD(Compare) {
     }
 
     Local<Object> compareWithSrcData = Local<Object>::Cast(args[1]);
-    Blob compareWithSrcBlob(Data(compareWithSrcData), Length(compareWithSrcData));
+    Blob compareWithSrcBlob(node::Buffer::Data(compareWithSrcData), node::Buffer::Length(compareWithSrcData));
     Image compareWith;
     try {
         compareWith.read(compareWithSrcBlob);
@@ -100,4 +100,4 @@ void init(Handle<Object> exports) {
         NanNew<FunctionTemplate>(Compare)->GetFunction());
 }
 
-NODE_MODULE(addon, init)
+NODE_MODULE(compare, init)

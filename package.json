@@ -7,13 +7,21 @@
     "test": "tap test/*.test.js",
     "install": "node-gyp rebuild"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MisumiRize/node-magick-compare.git"
+  },
   "author": "Rize MISUMI",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MisumiRize/node-magick-compare/issues"
+  },
+  "homepage": "https://github.com/MisumiRize/node-magick-compare",
   "dependencies": {
-    "merge": "^1.2.0",
-    "nan": "^1.3.0"
+    "nan": "~1.3.0",
+    "lodash": "~2.4.1"
   },
   "devDependencies": {
-    "tap": "^0.4.13"
+    "tap": "~0.4.13"
   }
 }
