@@ -1,10 +1,10 @@
 {
-  "name": "node-magick-compare",
+  "name": "magick-compare",
   "version": "0.0.1",
   "description": "Compare image using ImageMagick's Magick++",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tap test/*.test.js",
     "install": "node-gyp rebuild"
   },
   "author": "Rize MISUMI",
@@ -12,5 +12,8 @@
   "dependencies": {
     "merge": "^1.2.0",
     "nan": "^1.3.0"
+  },
+  "devDependencies": {
+    "tap": "^0.4.13"
   }
 }

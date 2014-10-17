@@ -7,5 +7,9 @@ DEFAULT_OPTIONS = {
 };
 
 module.exports = function(base, compareTo, options, callback) {
+    if (typeof options === 'function') {
+        callback = options;
+        options = {};
+    }
     compare(base, compareTo, merge(DEFAULT_OPTIONS, options), callback);
 };

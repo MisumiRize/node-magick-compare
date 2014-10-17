@@ -12,17 +12,17 @@ void CompareWorker::SetSupress(bool supress) {
 void CompareWorker::Execute() {
     try {
         _result = _image.compare(_compare);
+
+        if (!_result) {
+            _image.composite(_compare, Magick::ForgetGravity, Magick::DifferenceCompositeOp);
+            _image.write(&_diff);
+        }
     } catch (...) {
         if (_supress) {
             SetErrorMessage("unhandled error");
         } else {
             throw;
         }
-    }
-
-    if (!_result) {
-        _image.composite(_compare, Magick::ForgetGravity, Magick::DifferenceCompositeOp);
-        _image.write(&_diff);
     }
 }
 
