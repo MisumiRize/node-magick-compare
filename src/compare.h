@@ -17,15 +17,15 @@ using Magick::Blob;
 
 class CompareWorker : public NanAsyncWorker {
  public:
-    CompareWorker(NanCallback *callback, Image *image, Image *compare);
+    CompareWorker(NanCallback *callback, Image *base, Image *compareWith);
     ~CompareWorker();
     void Execute();
     void HandleOKCallback();
     void SetSupress(bool supress);
 
  private:
-    Image _image;
-    Image _compare;
+    Image _base;
+    Image _compareWith;
     bool _supress;
     bool _result;
     Blob _diff;

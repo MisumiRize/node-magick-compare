@@ -1,7 +1,7 @@
 #include "compare.h"
 
-CompareWorker::CompareWorker(NanCallback *callback, Image *image, Image *compare)
-    : NanAsyncWorker(callback), _image(*image), _compare(*compare) {}
+CompareWorker::CompareWorker(NanCallback *callback, Image *base, Image *compareWith)
+    : NanAsyncWorker(callback), _base(*base), _compareWith(*compareWith) {}
 
 CompareWorker::~CompareWorker() {}
 
@@ -11,15 +11,15 @@ void CompareWorker::SetSupress(bool supress) {
 
 void CompareWorker::Execute() {
     try {
-        _result = _image.compare(_compare);
+        _result = _base.compare(_compareWith);
 
         if (!_result) {
-            _image.composite(_compare, Magick::ForgetGravity, Magick::DifferenceCompositeOp);
-            _image.write(&_diff);
+            _base.composite(_compareWith, Magick::ForgetGravity, Magick::DifferenceCompositeOp);
+            _base.write(&_diff);
         }
     } catch (...) {
         if (_supress) {
-            SetErrorMessage("unhandled error");
+            SetErrorMessage("unhandled error while comparing");
         } else {
             throw;
         }
@@ -63,32 +63,32 @@ NAN_METHOD(Compare) {
     Local<Object> options = Local<Object>::Cast(args[2]);
     bool supress = options->Get(NanNew<String>("supress"))->BooleanValue();
 
-    Local<Object> imageSrcData = Local<Object>::Cast(args[0]);
-    Blob imageSrcBlob(Data(imageSrcData), Length(imageSrcData));
-    Image image;
+    Local<Object> baseSrcData = Local<Object>::Cast(args[0]);
+    Blob baseSrcBlob(Data(baseSrcData), Length(baseSrcData));
+    Image base;
     try {
-        image.read(imageSrcBlob);
+        base.read(baseSrcBlob);
     } catch (...) {
         if (supress) {
-            return NanThrowError("unhandled error");
+            return NanThrowError("unhandled error while loading base image");
         }
         throw;
     }
 
-    Local<Object> compareSrcData = Local<Object>::Cast(args[1]);
-    Blob compareSrcBlob(Data(compareSrcData), Length(compareSrcData));
-    Image compare;
+    Local<Object> compareWithSrcData = Local<Object>::Cast(args[1]);
+    Blob compareWithSrcBlob(Data(compareWithSrcData), Length(compareWithSrcData));
+    Image compareWith;
     try {
-        compare.read(compareSrcBlob);
+        compareWith.read(compareWithSrcBlob);
     } catch (...) {
         if (supress) {
-            return NanThrowError("unhandled error");
+            return NanThrowError("unhandled error while loading compareWith image");
         }
         throw;
     }
 
     NanCallback *callback = new NanCallback(args[3].As<Function>());
-    CompareWorker *worker = new CompareWorker(callback, &image, &compare);
+    CompareWorker *worker = new CompareWorker(callback, &base, &compareWith);
     worker->SetSupress(supress);
     NanAsyncQueueWorker(worker);
 

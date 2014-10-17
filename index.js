@@ -6,10 +6,10 @@ DEFAULT_OPTIONS = {
     supress: true
 };
 
-module.exports = function(base, compareTo, options, callback) {
+module.exports = function(base, compareWith, options, callback) {
     if (typeof options === 'function') {
         callback = options;
         options = {};
     }
-    compare(base, compareTo, merge(DEFAULT_OPTIONS, options), callback);
+    compare(base, compareWith, merge(DEFAULT_OPTIONS, options), callback);
 };
