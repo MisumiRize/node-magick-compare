@@ -11,6 +11,11 @@
     "type": "git",
     "url": "git://github.com/MisumiRize/node-magick-compare.git"
   },
+  "keywords": [
+    "imagemagick",
+    "image",
+    "compare"
+  ],
   "author": "Rize MISUMI",
   "license": "MIT",
   "bugs": {

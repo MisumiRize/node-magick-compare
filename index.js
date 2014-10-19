@@ -2,7 +2,7 @@ var compare = require('./build/Release/compare').compare
     , _ = require('lodash')
     ;
 
-DEFAULT_OPTIONS = {
+var DEFAULT_OPTIONS = {
     supress: true
 };
 
