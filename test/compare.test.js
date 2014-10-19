@@ -2,7 +2,7 @@ var compare = require('../')
     , test = require('tap').test
     , fs = require('fs')
     , path = require('path')
-    , base = fs.readFileSync(path.join(__dirname, 'base.png'));
+    , base = fs.readFileSync(path.join(__dirname, 'base.png'))
     ;
 
 test('comparing with same image', function(t) {
